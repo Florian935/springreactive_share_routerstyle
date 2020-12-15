@@ -20,6 +20,6 @@ public class UserRouter {
         return nest(
                 path("/users"),
                 route(GET(""), userHandler::fetchUser)
-                        .andRoute(GET("/SSE"), userHandler::fetchUsersSSE));
+                .andRoute(GET("/SSE"), userHandler::fetchUsersSSE));
     }
 }
