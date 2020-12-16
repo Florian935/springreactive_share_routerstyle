@@ -4,10 +4,8 @@ import com.reactive.share.router.springbootreactivesharerouter.handler.UserHandl
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
-import org.springframework.web.reactive.function.server.RouterFunctions;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
 import static org.springframework.web.reactive.function.server.RequestPredicates.path;
 import static org.springframework.web.reactive.function.server.RouterFunctions.nest;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
@@ -19,7 +17,10 @@ public class UserRouter {
     RouterFunction<ServerResponse> usersRoute(UserHandler userHandler) {
         return nest(
                 path("/users"),
-                route(GET(""), userHandler::fetchUser)
-                .andRoute(GET("/SSE"), userHandler::fetchUsersSSE));
+                route()
+                        .GET("", userHandler::fetchUser)
+                        .GET("/SSE", userHandler::fetchUsersSSE)
+                        .build()
+                );
     }
 }
